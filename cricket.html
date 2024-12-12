@@ -6,12 +6,21 @@
     <title>Document</title>
     <style>
         body{text-align: center;}
-        img{height: 100px; width: 100px;}
+        .choice-button{
+            height: 100px; 
+            width: 100px; 
+            background-color: green;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .choice-image{height: 75px;}
     </style>
 </head>
 <body>
     <h1>Bat Ball Stump Game</h1>
-    <button onclick="
+    <button class="choice-button" onclick="
         let userChoice='Bat';
         let computerChoice=generateRandomNumber();
         let result=getResult(userChoice,computerChoice);
@@ -20,7 +29,7 @@
     <img src="https://cdn-icons-png.flaticon.com/512/3439/3439653.png" alt="" class="choice-image">
     </button>
 
-    <button onclick="
+    <button class="choice-button" onclick="
         userChoice='Ball';
         computerChoice=generateRandomNumber();
         result=getResult(userChoice,computerChoice);
@@ -29,13 +38,13 @@
     <img src="https://cdn-icons-png.flaticon.com/512/1454/1454532.png" alt="" class="choice-image">
     </button>
 
-    <button onclick="
+    <button class="choice-button" onclick="
         userChoice='Stump';
         computerChoice=generateRandomNumber();
         result=getResult(userChoice,computerChoice);
         displayResult(userChoice,computerChoice,result);
     ">
-    <img src="https://www.vhv.rs/dpng/d/437-4370665_stumps-cricket-equipment-bails-black-cricket-stumps-png.png" alt="" class="choice-image">
+    <img src="https://toppng.com/uploads/preview/cricket-stumps-wicket-bails-one-day-test-svg-png-icon-cricket-stump-logo-vector-11562962791uyhpcr6oqc.png" alt="" class="choice-image">
     </button>
 
     <h3 id="user-move"></h3>
