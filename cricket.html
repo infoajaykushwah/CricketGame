@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{text-align: center;}
+        img{height: 100px; width: 100px;}
+    </style>
+</head>
+<body>
+    <h1>Bat Ball Stump Game</h1>
+    <button onclick="
+        let userChoice='Bat';
+        let computerChoice=generateRandomNumber();
+        let result=getResult(userChoice,computerChoice);
+        displayResult(userChoice,computerChoice,result);   
+    ">
+    <img src="https://cdn-icons-png.flaticon.com/512/3439/3439653.png" alt="" class="choice-image">
+    </button>
+
+    <button onclick="
+        userChoice='Ball';
+        computerChoice=generateRandomNumber();
+        result=getResult(userChoice,computerChoice);
+        displayResult(userChoice,computerChoice,result);
+    ">
+    <img src="https://cdn-icons-png.flaticon.com/512/1454/1454532.png" alt="" class="choice-image">
+    </button>
+
+    <button onclick="
+        userChoice='Stump';
+        computerChoice=generateRandomNumber();
+        result=getResult(userChoice,computerChoice);
+        displayResult(userChoice,computerChoice,result);
+    ">
+    <img src="https://www.vhv.rs/dpng/d/437-4370665_stumps-cricket-equipment-bails-black-cricket-stumps-png.png" alt="" class="choice-image">
+    </button>
+
+    <h3 id="user-move"></h3>
+    <h3 id="computer-move"></h3>
+    <h3 id="result"></h3>
+    <h3 id="score"></h3>
+
+    <button onclick="localStorage.clear()
+        getReset();
+    ">Reset</button>
+
+    <script>
+        let scoreStr = localStorage.getItem('Score');
+        let score;
+        getReset(scoreStr);
+
+        function getReset(scoreStr){
+            score = scoreStr ? JSON.parse(scoreStr) : {
+                win:0,
+                lost:0,
+                tie:0,
+            };
+
+            score.displayScore = function(){
+                return `Score= Win:${score.win}, Lost:${score.lost}, Tie:${score.tie}`;
+            };
+
+            displayResult();
+        };
+
+        // let score = JSON.parse(scoreStr) || {
+        //     win:0, 
+        //     lost:0,
+        //     tie:0,
+        // };
+
+        // if(scoreStr !== undefined){
+        //     score = JSON.parse(scoreStr);
+        // }else{
+        //     score={
+        //         win:0, 
+        //         lost:0,
+        //         tie:0,
+        //     };
+        // };
+
+        // score.displayScore = function(){
+        //     return `Score= Win:${score.win}, Lost:${score.lost}, Tie:${score.tie}`;
+        // };
+
+        function generateRandomNumber(){
+            let randomNumber=Math.random()*3;
+            if(randomNumber>0 && randomNumber<=1){
+                return 'Bat';
+            }else if(randomNumber>1 && randomNumber<=2){
+                return 'Ball';
+            }else{
+                return 'Stump';
+            };
+        };
+
+        function getResult(userChoice,computerChoice){
+            if(userChoice=='Bat'){
+                if(computerChoice==userChoice){
+                    score.tie ++;
+                    return `Its a tie`;
+                }else if(computerChoice=='Ball'){
+                    score.win ++;
+                    return `User won`;
+                }else if(computerChoice=='Stump'){
+                    score.lost ++;
+                    return `Computer won`;
+                };
+            }else if(userChoice=='Ball'){
+                if(computerChoice==userChoice){
+                    score.tie ++;
+                    return `Its a tie.`;
+                }else if(computerChoice=='Bat'){
+                    score.lost ++;
+                    return `Computer won`;
+                }else if(computerChoice=='Stump'){
+                    score.win ++;
+                    return `User won`;
+                };
+            }else if(userChoice=='Stump'){
+                if(computerChoice==userChoice){
+                    score.tie ++;
+                    return `Its a tie.`;
+                }else if(computerChoice=='Bat'){
+                    score.win ++;
+                    return `User won`;
+                }else if(computerChoice=='Ball'){
+                    score.lost ++;
+                    return `Computer won`;
+                };
+            };
+        };
+
+        function displayResult(userChoice,computerChoice,result){
+            localStorage.setItem('Score', JSON.stringify(score));
+            document.querySelector('#user-move').innerText= userChoice !== undefined ? `User has chosen ${userChoice}` : '';
+
+            document.querySelector('#computer-move').innerText= computerChoice !== undefined ? `Computer choice is ${computerChoice}` : '';
+
+            document.querySelector('#result').innerText=result !== undefined ? result : '';
+
+            document.querySelector('#score').innerText=score.displayScore();
+
+            // alert(`User has chosen ${userChoice}. Computer choice is ${computerChoice} and ${result}
+            
+            // ${score.displayScore()}`);
+        };
+    </script>
+</body>
+</html>
